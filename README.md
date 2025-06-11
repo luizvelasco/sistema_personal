@@ -35,6 +35,7 @@ Armazena as informações dos alunos.
 | data_nascimento | DATE    | Data de nascimento         |
 | genero        | VARCHAR(15)  | Gênero (Masculino, Feminino, Outro) |
 | foto          | VARCHAR(255) | Caminho da foto do aluno |
+| professor_id  | INT        | Relaciona o professor      |
 | ativo         | BOOLEAN    | Status ativo/inativo       |
 | criado_em     | TIMESTAMP  | Data de criação do registro|
 | atualizado_em | TIMESTAMP  | Data da última atualização |
@@ -106,7 +107,7 @@ CREATE TABLE IF NOT EXISTS professores (
     atualizado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Tabela: alunos
+-- Tabela: alunos (com referência ao professor)
 CREATE TABLE IF NOT EXISTS alunos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
@@ -115,10 +116,13 @@ CREATE TABLE IF NOT EXISTS alunos (
     data_nascimento DATE,
     genero VARCHAR(15),
     foto VARCHAR(255),
+    professor_id INT, -- Novo campo
     ativo BOOLEAN DEFAULT 1,
     criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    atualizado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    atualizado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (professor_id) REFERENCES professores(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 
 -- Tabela: avaliacoes
 CREATE TABLE IF NOT EXISTS avaliacoes (
