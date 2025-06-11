@@ -1,0 +1,20 @@
+# Ignorar arquivos de configuração sensíveis
+.env
+db.php
+
+# Ignorar diretórios de upload de arquivos
+uploads/
+
+# Ignorar arquivos de cache e temporários
+*.log
+*.tmp
+*.bak
+*.swp
+
+# Ignorar dependências do composer (caso esteja usando)
+vendor/
+
+# Ignorar diretórios do sistema operacional / IDEs
+.DS_Store
+.idea/
+.vscode/
