@@ -14,9 +14,9 @@
         </div>
         <div id="footer-links-container">
             <ul>
-                <li><a href="#">Adicionar Filme</a></li>
-                <li><a href="#">Adicionar Critica</a></li>
-                <li><a href="#">Entrar / Registrar</a></li>
+                <li><a href="#">Adicionar Aluno</a></li>
+                <li><a href="#">Listar Alunos</a></li>
+                <li><a href="#">Logout</a></li>
             </ul>
         </div>
         <p>&copy; 2025 Luiz Velasco</p>
