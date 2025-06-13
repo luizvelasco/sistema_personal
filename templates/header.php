@@ -53,7 +53,7 @@
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= $BASE_URL ?>logout.php" class="nav-link">
+                            <a href="<?= $BASE_URL ?>auth.php" class="nav-link">
                                 <i class="fas fa-sign-out-alt"></i> Logout
                             </a>
                         </li>
