@@ -18,10 +18,36 @@
                         <input type="password" class="form-control" id="password" name="password" placeholder="Digite sua senha">
                     </div>
                     <input type="submit" class="btn card-btn" value="Entrar">
-
                     <div class="form-group mt-3 text-center">
                         <a href="forgot_password.php" class="text-muted">Esqueceu a senha?</a>
                     </div>
+                </form>
+            </div>
+            <div class="col-md-4" id="login-container">
+                <h2>Criar Conta</h2>
+                <form action="" method="post">
+                    <input type="hidden"  name="type" name="register">
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" class="form-control" id="email" name="email"  placeholder="Digite seu e-mail">
+                    </div>
+                    <div class="form-group">
+                        <label for="nome">Nome</label>
+                        <input type="text" class="form-control" id="name" name="name"  placeholder="Digite seu nome">
+                    </div>
+                    <div class="form-group">
+                        <label for="nome">Sobrenome</label>
+                        <input type="text" class="form-control" id="lastname" name="lastname"  placeholder="Digite seu sobrenome">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Senha</label>
+                        <input type="password" class="form-control" id="password" name="password"  placeholder="Digite sua senha">
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmpassword">Confirmação de senha</label>
+                        <input type="password" class="form-control" id="confirmpassword" name="confirmpassword"  placeholder="Confirme sua senha">
+                    </div>
+                    <input type="submit" class="btn card-btn" value="Registrar">
                 </form>
             </div>
         </div>

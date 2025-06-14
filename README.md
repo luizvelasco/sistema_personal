@@ -93,8 +93,8 @@ Permite associar múltiplas fotos a cada avaliação.
 
 ```sql
 -- Criação do banco de dados (opcional)
-CREATE DATABASE IF NOT EXISTS sistema_academia DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE sistema_academia;
+CREATE DATABASE IF NOT EXISTS personal DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE personal;
 
 -- Tabela: professores
 CREATE TABLE IF NOT EXISTS professores (
@@ -102,6 +102,8 @@ CREATE TABLE IF NOT EXISTS professores (
     nome VARCHAR(255) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     telefone VARCHAR(20),
+    password VARCHAR(200) NOT NULL,
+    token VARCHAR(200),
     ativo BOOLEAN DEFAULT 1,
     criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     atualizado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
