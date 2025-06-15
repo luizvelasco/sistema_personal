@@ -31,7 +31,19 @@
                 // Verificar se o e-mail já está cadastrado no sistema
                 if($professorDao->findByEmail($email) == false){
 
-                    echo "Nenhum usuário foi encontrado.";
+                   // Criação de senha e token
+                    $professorToken = $professor->generateToken();
+                    $finalPassword = $professor->generatePassword($password);
+
+                    $professor->nome = $nome;
+                    $professor->telefone = $telefone;
+                    $professor->email = $email;
+                    $professor->password = $finalPassword;
+                    $professor->token = $professorToken;
+
+                    $auth = true;
+
+                    $professorDao->create($user,$auth);
 
                 } else {
                     // Enviar msg de erro, usuáriuo já existe
