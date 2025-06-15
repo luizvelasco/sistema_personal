@@ -1,14 +1,23 @@
 <?php
     require_once("globals.php");
     require_once("db.php");
+    require_once("models/Message.php");
 
     $_SESSION['user'] = [
-    'name' => 'João da Silva',
-    'email' => 'joao@email.com'
-];
+        'name' => 'João da Silva',
+        'email' => 'joao@email.com'
+    ];
 
+    $message = new Message($BASE_URL);
 
-    $flashMessage = [];
+    $flashMessage = $message->getMessage();
+
+    if (!empty($flashMessage["msg"])){
+        // Limpar a mensagem
+        $message->clearMessage();
+
+    }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
