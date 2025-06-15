@@ -16,5 +16,6 @@ interface ProfessorDAOInterface {
 
     public function buildProfessor($data);
     public function create(Professor $professor, $authProfessor = false);
+    public function findByEmail($email);
 
 }

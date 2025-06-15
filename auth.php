@@ -33,11 +33,11 @@
                     </div>
                     <div class="form-group">
                         <label for="nome">Nome</label>
-                        <input type="text" class="form-control" id="name" name="name"  placeholder="Digite seu nome">
+                        <input type="text" class="form-control" id="nome" name="nome"  placeholder="Digite seu nome">
                     </div>
                     <div class="form-group">
-                        <label for="nome">Sobrenome</label>
-                        <input type="text" class="form-control" id="lastname" name="lastname"  placeholder="Digite seu sobrenome">
+                        <label for="telefone">Telefone</label>
+                        <input type="text" class="form-control" id="telefone" name="telefone"  placeholder="Digite seu Telefone">
                     </div>
                     <div class="form-group">
                         <label for="password">Senha</label>

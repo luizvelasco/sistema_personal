@@ -8,21 +8,40 @@
 
     $message = new Message($BASE_URL);
 
+    $professorDao = new ProfressorDAO($conn, $BASE_URL);
+
     // Resgata o tipo do formulário
     $type = filter_input(INPUT_POST, "type");
 
     // Verificação do tipo de formulário
     if ($type === "register") {
 
-        $name = filter_input(INPUT_POST, "name");
-        $lastame = filter_input(INPUT_POST, "lastame");
+        $nome = filter_input(INPUT_POST, "nome");
+        $telefone = filter_input(INPUT_POST, "telefone");
         $email = filter_input(INPUT_POST, "email");
         $password = filter_input(INPUT_POST, "password");
         $confirmpassword = filter_input(INPUT_POST, "confirmpassword");
 
         // VErificação de dados mínimos
-        if ($name && $lastame && $email && $password) {
+        if ($nome && $telefone && $email && $password) {
 
+            // Verificar se as senhas são iguais
+            if ($password === $confirmpassword) {
+
+                // Verificar se o e-mail já está cadastrado no sistema
+                if($professorDao->findByEmail($email) == false){
+
+                    echo "Nenhum usuário foi encontrado.";
+
+                } else {
+                    // Enviar msg de erro, usuáriuo já existe
+                    $message->setMessage("Usuário já cadastrado, tente outro e-mail.", "error", "back");
+                }
+
+            } else {
+                // Enviar msg de erro, de senhas não batem
+                $message->setMessage("As senhas não são iguais.", "error", "back");
+            }
 
 
         } else {

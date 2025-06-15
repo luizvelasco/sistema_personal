@@ -32,4 +32,30 @@
 
         }
 
+        public function findByEmail($email) {
+
+            if($email != ""){
+
+                $stmt = $this->conn->prepare("SELECT * FROM professores WHERE email = :email");
+
+                $stmt->bindParam(":email", $email);
+
+                $stmt->execute();
+
+                if($stmt->rowCount() > 0) {
+
+                    $data = $stmt->fetch();
+                    $user = $this->buildProfessor($data);
+
+                    return $user;
+
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+
+        }
+
     }
