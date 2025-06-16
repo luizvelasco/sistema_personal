@@ -10,6 +10,8 @@
 
     $professorDao = new ProfressorDAO($conn, $BASE_URL);
 
+    $professor = new Professor();
+
     // Resgata o tipo do formulário
     $type = filter_input(INPUT_POST, "type");
 
@@ -43,7 +45,7 @@
 
                     $auth = true;
 
-                    $professorDao->create($user,$auth);
+                    $professorDao->create($professor, $auth);
 
                 } else {
                     // Enviar msg de erro, usuáriuo já existe
