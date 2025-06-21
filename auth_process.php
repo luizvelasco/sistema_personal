@@ -45,7 +45,7 @@
 
                     $auth = true;
 
-                    $professorDao->create($user,$auth);
+                    $professorDao->create($professor, $auth);
 
                 } else {
                     // Enviar msg de erro, usuáriuo já existe

@@ -1,6 +1,6 @@
 <?php
 
-    require_once("models/professor.php");
+    require_once("models/Professor.php");
     require_once("models/Message.php");
 
     class ProfressorDAO implements ProfessorDAOInterface{
@@ -12,25 +12,54 @@
         public function __construct(PDO $conn, $url) {
             $this->conn = $conn;
             $this->url = $url;
-            
+            $this->message = new Message($url);
         }
 
         public function buildProfessor($data){
 
-            $user = new Professor();
+            $professor = new Professor();
 
-            $user->id = $data["id"];
-            $user->nome = $data["nome"];
-            $user->email = $data["email"];
-            $user->telefone = $data["telefone"];
-            $user->password = $data["password"];
-            $user->token = $data["token"];
-            $user->ativo = $data["ativo"];
+            $professor->id = $data["id"];
+            $professor->nome = $data["nome"];
+            $professor->email = $data["email"];
+            $professor->telefone = $data["telefone"];
+            $professor->password = $data["password"];
+            $professor->token = $data["token"];
+            $professor->ativo = $data["ativo"];
 
-            return $user;
+            return $professor;
 
         }
-        public function create(Professor $professor, $authUser = false) {
+        public function create(Professor $professor, $authProfessor = false) {
+
+            $stmt = $this->conn->prepare("INSERT INTO professores (
+                nome, email, telefone, password, token) 
+                VALUES (:nome, :email, :telefone, :password, :token)
+            ");
+
+            $stmt->bindParam(":nome", $professor->nome);
+            $stmt->bindParam(":email", $professor->email);
+            $stmt->bindParam(":telefone", $professor->telefone);
+            $stmt->bindParam(":password", $professor->password);
+            $stmt->bindParam(":token", $professor->token);
+
+            $stmt->execute();
+
+            // Autenticar usuário, caso auth seja true
+            if ($authProfessor) {
+                $this->setTokenToSession($professor->token);
+            }
+
+        }
+
+         public function setTokenToSession($token, $redirect = true) {
+
+            // Salvar token na session
+            $_SESSION["token"] = $token;
+            if($redirect) {
+                // redireciona para o perfl do usuário
+                $this->message->setMessage("Seja bem vindo!", "sucess", "editprofile.php");
+            }
 
         }
 

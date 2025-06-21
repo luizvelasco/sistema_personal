@@ -28,5 +28,6 @@ interface ProfessorDAOInterface {
     public function findByEmail($email);
     public function findByToken($token);
     public function destroyToken();
+    public function setTokenToSession($token, $redirect = true);
 
 }
