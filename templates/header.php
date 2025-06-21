@@ -2,6 +2,7 @@
     require_once("globals.php");
     require_once("db.php");
     require_once("models/Message.php");
+    require_once("dao/ProfressorDAO.php");
 
     $_SESSION['user'] = [
         'name' => 'João da Silva',
@@ -17,6 +18,10 @@
         $message->clearMessage();
 
     }
+
+    $professorDao = new ProfressorDAO($conn, $BASE_URL);
+
+    $professorData = $professorDao->verifyToken();
 
 ?>
 <!DOCTYPE html>
@@ -51,7 +56,7 @@
             </form>
             <div class="collapse navbar-collapse justify-content-end" id="navbar">
                 <ul class="navbar-nav">
-                    <?php if(isset($_SESSION['user'])): ?>
+                     <?php if($professorData): ?>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <?= htmlspecialchars($_SESSION['user']['name']) ?>
@@ -66,10 +71,7 @@
                                 <i class="fas fa-sign-out-alt"></i> Logout
                             </a>
                         </li>
-                    <?php else: ?>
-                        <li class="nav-item">
-                            <a href="<?= $BASE_URL ?>auth.php" class="nav-link">Entrar/Cadastrar</a>
-                        </li>
+                    
                     <?php endif; ?>
                 </ul>
             </div>
