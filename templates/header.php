@@ -4,11 +4,6 @@
     require_once("models/Message.php");
     require_once("dao/ProfressorDAO.php");
 
-    $_SESSION['user'] = [
-        'name' => 'João da Silva',
-        'email' => 'joao@email.com'
-    ];
-
     $message = new Message($BASE_URL);
 
     $flashMessage = $message->getMessage();
@@ -67,7 +62,7 @@
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= $BASE_URL ?>auth.php" class="nav-link">
+                            <a href="<?= $BASE_URL ?>logout.php" class="nav-link">
                                 <i class="fas fa-sign-out-alt"></i> Logout
                             </a>
                         </li>

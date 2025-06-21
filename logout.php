@@ -2,6 +2,6 @@
 
     require_once("templates/header.php");
 
-    if($userDao) {
-        $userDao->destroyToken();
+    if($professorDao) {
+        $professorDao->destroyToken();
     }

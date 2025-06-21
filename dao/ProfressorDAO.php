@@ -58,7 +58,7 @@
             $_SESSION["token"] = $token;
             if($redirect) {
                 // redireciona para o perfl do usuário
-                $this->message->setMessage("Seja bem vindo!", "sucess", "editprofile.php");
+                $this->message->setMessage("Seja bem vindo!", "success", "index.php");
             }
 
         }
@@ -145,7 +145,7 @@
             $_SESSION["token"] = "";
 
             // Redireciona e apreseta a mensagem de sucesso
-            $this->message->setMessage("Voce fez o logout com sucesso", "success", "index.php");
+            $this->message->setMessage("Voce fez o logout com sucesso", "success", "auth.php");
 
         }
 
