@@ -103,12 +103,12 @@
                 } else if ($protected){
 
                     // redireciona usuário não autenticado
-                    $this->message->setMessage("Faça a autenticação para acessar essa página", "error", "index.php");
+                    $this->message->setMessage("Faça a autenticação para acessar essa página", "error", "auth.php");
                 }
             } else if ($protected) {
                 
                  // redireciona usuário não autenticado
-                $this->message->setMessage("Faça a autenticação para acessar essa página", "error", "index.php");
+                $this->message->setMessage("Faça a autenticação para acessar essa página", "error", "auth.php");
             }
             
         }
