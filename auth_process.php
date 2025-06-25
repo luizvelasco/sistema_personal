@@ -4,11 +4,11 @@
     require_once("db.php");
     require_once ("models/Professor.php");
     require_once ("models/Message.php");
-    require_once ("dao/ProfressorDAO.php");
+    require_once ("dao/ProfessorDAO.php");
 
     $message = new Message($BASE_URL);
 
-    $professorDao = new ProfressorDAO($conn, $BASE_URL);
+    $professorDao = new ProfessorDAO($conn, $BASE_URL);
 
     $professor = new Professor();
 
@@ -67,4 +67,19 @@
 
     } else if ($type === "login") {
 
+        $email = filter_input(INPUT_POST, "email");
+        $password = filter_input(INPUT_POST, "password");
+
+        // Tenta autenticar o professor
+        if($professorDao->authenticateProfessor($email, $password)){
+
+             $message->setMessage("Seja bem-vindo", "success", "editprofile.php");
+
+        // Redireciona o professor caso não consiga autenticar
+        } else {
+            $message->setMessage("Usuário e/ou senha incorretos", "error", "back");
+        }
+
+    } else {
+        $message->setMessage("Informações inválidas", "error", "index.php");
     }

@@ -24,10 +24,12 @@ interface ProfessorDAOInterface {
 
     public function buildProfessor($data);
     public function create(Professor $professor, $authProfessor = false);
+    public function update(Professor $professor, $redirect = true);
     public function verifyToken($protected = false);
     public function findByEmail($email);
     public function findByToken($token);
     public function destroyToken();
     public function setTokenToSession($token, $redirect = true);
+    public function authenticateProfessor($email, $password);
 
 }

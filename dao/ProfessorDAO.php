@@ -3,7 +3,7 @@
     require_once("models/Professor.php");
     require_once("models/Message.php");
 
-    class ProfressorDAO implements ProfessorDAOInterface{
+    class ProfessorDAO implements ProfessorDAOInterface{
 
         private $conn;
         private $url;
@@ -49,6 +49,32 @@
             if ($authProfessor) {
                 $this->setTokenToSession($professor->token);
             }
+
+        }
+
+        public function update(Professor $professor, $redirect = true){
+
+            $stmt = $this->conn->prepare("UPDATE professores SET 
+                nome = :nome,
+                telefone = :telefone,
+                email = :email,
+                token = :token
+                WHERE id = :id
+            ");
+
+            $stmt->bindParam(":nome", $professor->nome);
+            $stmt->bindParam(":telefone", $professor->telefone);
+            $stmt->bindParam(":email", $professor->email);
+            $stmt->bindParam(":token", $professor->token);
+            $stmt->bindParam(":id", $professor->id);
+
+            $stmt->execute();
+
+             if($redirect) {
+                // redireciona para o perfl do professor
+                $this->message->setMessage("Dados atualizados com sucesso", "sucess", "editprofile.php");
+            }
+
 
         }
 
@@ -146,6 +172,35 @@
 
             // Redireciona e apreseta a mensagem de sucesso
             $this->message->setMessage("Voce fez o logout com sucesso", "success", "auth.php");
+
+        }
+
+        public function authenticateProfessor($email, $password) {
+
+            $professor = $this->findByEmail($email);
+
+            if ($professor) {
+                // Checar se a senhas batem
+                if (password_verify($password, $professor->password)) {
+
+                    // Gerar um token e inserir na session
+                    $token = $professor->generateToken();
+
+                    $this->setTokenToSession($token, false);
+
+                    // Atualizar tokeon no usuários
+                    $professor->token = $token;
+
+                    $this->update($professor, false);
+
+                    return true;
+
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
 
         }
 

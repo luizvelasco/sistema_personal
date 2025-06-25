@@ -2,7 +2,7 @@
     require_once("globals.php");
     require_once("db.php");
     require_once("models/Message.php");
-    require_once("dao/ProfressorDAO.php");
+    require_once("dao/ProfessorDAO.php");
 
     $message = new Message($BASE_URL);
 
@@ -14,7 +14,7 @@
 
     }
 
-    $professorDao = new ProfressorDAO($conn, $BASE_URL);
+    $professorDao = new ProfessorDAO($conn, $BASE_URL);
 
     $professorData = $professorDao->verifyToken();
 
