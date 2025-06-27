@@ -57,7 +57,7 @@
                                 <?= htmlspecialchars($professorData->nome) ?>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="<?= $BASE_URL ?>profile.php">Meu Perfil</a>
+                                <a class="dropdown-item" href="<?= $BASE_URL ?>editprofile.php">Meu Perfil</a>
                                 <a class="dropdown-item" href="<?= $BASE_URL ?>settings.php">Configurações</a>
                             </div>
                         </li>

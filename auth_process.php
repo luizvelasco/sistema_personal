@@ -73,7 +73,7 @@
         // Tenta autenticar o professor
         if($professorDao->authenticateProfessor($email, $password)){
 
-             $message->setMessage("Seja bem-vindo", "success", "editprofile.php");
+             $message->setMessage("Seja bem-vindo", "success", "index.php");
 
         // Redireciona o professor caso não consiga autenticar
         } else {
