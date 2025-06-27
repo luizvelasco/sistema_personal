@@ -58,7 +58,7 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="<?= $BASE_URL ?>editprofile.php">Meu Perfil</a>
-                                <a class="dropdown-item" href="<?= $BASE_URL ?>settings.php">Configurações</a>
+                                <a class="dropdown-item" href="<?= $BASE_URL ?>changepassword.php">Alterar senha</a>
                             </div>
                         </li>
                         <li class="nav-item">
