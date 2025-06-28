@@ -16,12 +16,12 @@
             <div class="col-md-6">
                 <h1><?= $professorData->nome ?></h1>
                 <p class="page-description">Altere seus dados no formulário abaixo:</p>
-                <form action="<?= $BASE_URL ?>user_process.php" method="post" enctype="multipart/form-data">
+                <form action="<?= $BASE_URL ?>professor_process.php" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="type" value="update">
 
                     <div class="form-group">
-                        <label for="name">Nome:</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Digite o seu nome" value="<?= $professorData->nome ?>">
+                        <label for="nome">Nome:</label>
+                        <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite o seu nome" value="<?= $professorData->nome ?>">
                     </div>
                     <div class="form-group">
                         <label for="email">E-mail:</label>

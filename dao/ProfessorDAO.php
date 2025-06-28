@@ -72,7 +72,7 @@
 
              if($redirect) {
                 // redireciona para o perfl do professor
-                $this->message->setMessage("Dados atualizados com sucesso", "sucess", "editprofile.php");
+                $this->message->setMessage("Dados atualizados com sucesso", "success", "editprofile.php");
             }
 
 
