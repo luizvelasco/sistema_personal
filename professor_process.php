@@ -36,6 +36,31 @@
 
     } else if($type == "changepassword") {
 
+        // Recebe dados do POST
+        $password = filter_input(INPUT_POST, "password");
+        $confirmpassword = filter_input(INPUT_POST, "confirmpassword");
+       
+        // Resgata dados do usuário
+        $professorData = $professorDao->verifyToken();
+        
+        $id = $professorData->id;
+
+        if($password == $confirmpassword){
+
+            // Criar um novo objeto de usuário
+            $professor = new Professor();
+
+            $finalPassword = $professor->generatePassword(($password));
+
+            $professor->password = $finalPassword;
+            $professor->id = $id;
+
+            $professorDao->changePassword($professor);
+
+        } else {
+            $message->setMessage("As senhas não são iguais", "error", "back");
+        }
+
     } else {
         $message->setMessage("Informaçõe inválidas", "error", "auth.php");
     }

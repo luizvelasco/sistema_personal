@@ -204,4 +204,21 @@
 
         }
 
+        public function changePassword(Professor $professor) {
+
+            $stmt = $this->conn->prepare("UPDATE professores SET
+                password = :password
+                WHERE id = :id
+            ");
+
+            $stmt->bindParam(":password", $professor->password);
+            $stmt->bindParam(":id", $professor->id);
+
+            $stmt->execute();
+
+            // Redireciona e apreseta a mensagem de sucesso
+            $this->message->setMessage("Senha alterada com sucesso", "success", "changepassword.php");
+            
+        }
+
     }
