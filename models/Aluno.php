@@ -17,7 +17,7 @@
 
     }
 
-    interface MovieDAOInterface {
+    interface AlunoDAOInterface {
 
         public function buildAluno($data);
         public function findAll();
