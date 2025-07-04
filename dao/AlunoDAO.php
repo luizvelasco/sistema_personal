@@ -34,6 +34,24 @@
         }
 
         public function create(Aluno $aluno){
+
+            $stmt = $this->conn->prepare("INSERT INTO alunos (
+                nome, email, telefone, data_nascimento, genero, foto, professor_id) 
+                VALUES (:nome, :email, :telefone, :data_nascimento, :genero, :foto, :professor_id)
+            ");
+
+            $stmt->bindParam(":nome", $aluno->nome);
+            $stmt->bindParam(":email", $aluno->email);
+            $stmt->bindParam(":telefone", $aluno->telefone);
+            $stmt->bindParam(":data_nascimento", $aluno->data_nascimento);
+            $stmt->bindParam(":genero", $aluno->genero);
+            $stmt->bindParam(":foto", $aluno->foto);
+            $stmt->bindParam(":professor_id", $aluno->professor_id);
+
+            $stmt->execute();
+
+            // Mensagem de sucesso por adicionar filme
+            $this->message->setMessage("Aluno adicionado com sucesso", "success", "index.php");
             
         }
 
