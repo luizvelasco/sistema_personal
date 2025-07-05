@@ -28,9 +28,29 @@
             $aluno->foto = $data["foto"];
             $aluno->professor_id = $data["professor_id"];
 
+            return $aluno;
+
         }
         public function findAll(){
             
+        }
+
+        public function getAlunos(){
+
+            $alunos = [];
+
+            $query = "SELECT * FROM alunos ORDER BY id DESC";
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+
+            $alunosArray = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            foreach ($alunosArray as $aluno) {
+                $alunos[] = $this->buildAluno($aluno);
+            }
+
+            return $alunos;
+
         }
 
         public function create(Aluno $aluno){

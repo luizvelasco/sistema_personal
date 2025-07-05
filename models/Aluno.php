@@ -20,6 +20,7 @@
     interface AlunoDAOInterface {
 
         public function buildAluno($data);
+        public function getAlunos();
         public function findAll();
         public function create(Aluno $aluno);
         public function update(Aluno $aluno);
