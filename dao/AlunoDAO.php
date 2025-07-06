@@ -26,6 +26,7 @@
             $aluno->data_nascimento = $data["data_nascimento"];
             $aluno->genero = $data["genero"];
             $aluno->foto = $data["foto"];
+            $aluno->ativo = $data["ativo"];
             $aluno->professor_id = $data["professor_id"];
 
             return $aluno;
@@ -35,12 +36,13 @@
             
         }
 
-        public function getAlunos(){
+        public function getAlunos($professor_id){
 
             $alunos = [];
 
-            $query = "SELECT * FROM alunos ORDER BY id DESC";
+            $query = "SELECT * FROM alunos WHERE professor_id = :professor_id ORDER BY id DESC";
             $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(":professor_id", $professor_id);
             $stmt->execute();
 
             $alunosArray = $stmt->fetchAll(PDO::FETCH_ASSOC);

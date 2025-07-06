@@ -15,7 +15,7 @@
         <div id="footer-links-container">
             <ul>
                 <li><a href="<?= $BASE_URL ?>novoaluno.php">Adicionar Aluno</a></li>
-                <li><a href="#">Listar Alunos</a></li>
+                <li><a href="<?= $BASE_URL ?>dashboard.php">Listar Alunos</a></li>
                 <li><a href="#">Logout</a></li>
             </ul>
         </div>

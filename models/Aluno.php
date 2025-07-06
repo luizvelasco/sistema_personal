@@ -9,6 +9,7 @@
         public $data_nascimento;
         public $genero;
         public $foto;
+        public $ativo;
         public $professor_id;
 
         public function imageGenerateName() {
@@ -20,7 +21,7 @@
     interface AlunoDAOInterface {
 
         public function buildAluno($data);
-        public function getAlunos();
+        public function getAlunos($professor_id);
         public function findAll();
         public function create(Aluno $aluno);
         public function update(Aluno $aluno);

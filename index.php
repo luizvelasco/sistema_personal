@@ -6,7 +6,9 @@
     // DAO alunos
     $alunoDao = new AlunoDAO($conn, $BASE_URL);
 
-    $alunos = $alunoDao->getAlunos(); 
+    $professorData = $professorDao->verifyToken(true);
+
+    $alunos = $alunoDao->getAlunos($professorData->id); 
 
 ?>
 
