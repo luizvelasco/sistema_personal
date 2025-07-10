@@ -27,7 +27,10 @@
             $aluno->genero = $data["genero"];
             $aluno->foto = $data["foto"];
             $aluno->ativo = $data["ativo"];
+            $aluno->criado_em = $data["criado_em"];
+            $aluno->atualizado_em = $data["atualizado_em"];
             $aluno->professor_id = $data["professor_id"];
+            
 
             return $aluno;
 
@@ -84,5 +87,20 @@
         public function destroy ($id){
             
         }
+
+        public function findById($id) {
+            if (!$id) return false;
+
+            $stmt = $this->conn->prepare("SELECT * FROM alunos WHERE id = :id");
+            $stmt->bindParam(":id", $id);
+            $stmt->execute();
+
+            if ($stmt->rowCount() > 0) {
+                $data = $stmt->fetch(PDO::FETCH_ASSOC);
+                return $this->buildAluno($data);
+            } else {
+                return false;
+            }
+}
 
     }

@@ -11,6 +11,8 @@
         public $foto;
         public $ativo;
         public $professor_id;
+        public $criado_em;
+        public $atualizado_em;
 
         public function imageGenerateName() {
             return bin2hex(random_bytes(60)) . ".jpg";
@@ -26,4 +28,5 @@
         public function create(Aluno $aluno);
         public function update(Aluno $aluno);
         public function destroy ($id);
+        public function findById ($id);
     }
