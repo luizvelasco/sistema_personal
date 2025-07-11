@@ -84,6 +84,83 @@
         }
 
 
+    } elseif ($type === "update") {
+
+        // Dados do formulário
+        $id = filter_input(INPUT_POST, "id");
+        $nome = filter_input(INPUT_POST, "nome");
+        $email = filter_input(INPUT_POST, "email");
+        $telefone = filter_input(INPUT_POST, "telefone");
+        $data_nascimento = filter_input(INPUT_POST, "data_nascimento");
+        $genero = filter_input(INPUT_POST, "genero");
+        $ativo = filter_input(INPUT_POST, "ativo");
+
+        // Busca o aluno no banco com verificação de vínculo
+        $aluno = $alunoDao->findById($id, $professor_id);
+
+        echo $id . " - " . $professor_id;
+
+        if (!$aluno) {
+            $message->setMessage("Aluno não encontrado ou acesso negado!", "error", "index.php");
+            exit();
+        }
+
+        // Atualiza os dados
+        $aluno->nome = $nome;
+        $aluno->email = $email;
+        $aluno->telefone = $telefone;
+        $aluno->data_nascimento = $data_nascimento;
+        $aluno->genero = $genero;
+        $aluno->ativo = $ativo;
+        $aluno->atualizado_em = date("Y-m-d H:i:s");
+
+        // Foto
+        if (isset($_FILES["foto"]) && $_FILES["foto"]["size"] > 0) {
+
+            $foto = $_FILES["foto"];
+            $allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
+            $maxSize = 2 * 1024 * 1024; // 2MB
+
+            if (!in_array($foto["type"], $allowedTypes)) {
+                $message->setMessage("Tipo de imagem inválido. Envie JPG ou PNG.", "error", "editaraluno.php?id=$id");
+                exit();
+            }
+
+            if ($foto["size"] > $maxSize) {
+                $message->setMessage("Imagem muito grande. Envie até 2MB.", "error", "editaraluno.php?id=$id");
+                exit();
+            }
+
+            // Gera nome único
+            $imageName = uniqid() . "." . pathinfo($foto["name"], PATHINFO_EXTENSION);
+            $destPath = "img/alunos/" . $imageName;
+
+            move_uploaded_file($foto["tmp_name"], $destPath);
+
+            // Deleta foto antiga se houver
+            if (!empty($aluno->foto) && file_exists("img/alunos/" . $aluno->foto)) {
+                unlink("img/alunos/" . $aluno->foto);
+            }
+
+            $aluno->foto = $imageName;
+        }
+
+        // Salva no banco
+        $alunoDao->update($aluno);
+
+        $message->setMessage("Aluno atualizado com sucesso!", "success", "editaraluno.php?id=$id");
+
     } else {
         $message->setMessage("Informações inválidas", "error", "index.php");
     }
+
+
+
+
+
+
+
+
+
+
+    

@@ -80,19 +80,47 @@
             
         }
 
-        public function update(Aluno $aluno){
-            
+        public function update(Aluno $aluno) {
+            $stmt = $this->conn->prepare("
+                UPDATE alunos SET 
+                    nome = :nome,
+                    email = :email,
+                    telefone = :telefone,
+                    data_nascimento = :data_nascimento,
+                    genero = :genero,
+                    foto = :foto,
+                    ativo = :ativo,
+                    atualizado_em = :atualizado_em
+                WHERE id = :id AND professor_id = :professor_id
+            ");
+
+            $stmt->bindParam(":nome", $aluno->nome);
+            $stmt->bindParam(":email", $aluno->email);
+            $stmt->bindParam(":telefone", $aluno->telefone);
+            $stmt->bindParam(":data_nascimento", $aluno->data_nascimento);
+            $stmt->bindParam(":genero", $aluno->genero);
+            $stmt->bindParam(":foto", $aluno->foto);
+            $stmt->bindParam(":ativo", $aluno->ativo);
+            $stmt->bindParam(":atualizado_em", $aluno->atualizado_em);
+            $stmt->bindParam(":id", $aluno->id);
+            $stmt->bindParam(":professor_id", $aluno->professor_id);
+
+            $stmt->execute();
+
+            // Mensagem de sucesso
+            $this->message->setMessage("Aluno atualizado com sucesso!", "success", "editaraluno.php?id={$aluno->id}");
         }
 
         public function destroy ($id){
             
         }
 
-        public function findById($id) {
+        public function findById($id, $professor_id) {
             if (!$id) return false;
 
-            $stmt = $this->conn->prepare("SELECT * FROM alunos WHERE id = :id");
+            $stmt = $this->conn->prepare("SELECT * FROM alunos WHERE id = :id AND professor_id = :professor_id");
             $stmt->bindParam(":id", $id);
+            $stmt->bindParam(":professor_id", $professor_id);
             $stmt->execute();
 
             if ($stmt->rowCount() > 0) {

@@ -1,8 +1,17 @@
 <?php
     require_once("templates/header.php");
+    require_once("models/Message.php");
 
     require_once("models/Aluno.php");
     require_once("dao/AlunoDAO.php");
+
+    require_once("models/Professor.php");
+    require_once("dao/ProfessorDAO.php");
+
+    $professor = new Professor();
+    $professorDao = new ProfessorDAO($conn, $BASE_URL);
+    $professorData = $professorDao->verifyToken(true);
+    $professor_id = $professorData->id;
 
     $alunoDao = new AlunoDAO($conn, $BASE_URL);
 
@@ -16,18 +25,16 @@
     }
 
     // Busca aluno pelo ID
-    $aluno = $alunoDao->findById($id);
+    $aluno = $alunoDao->findById($id, $professor_id);
 
     if (!$aluno) {
-        echo "<p class='text-center mt-5'>Aluno não encontrado!</p>";
-        require_once("templates/footer.php");
-        exit();
+        $message->setMessage("Aluno inexistente", "error", "index.php");
     }
 ?>
 
 <div id="main-container" class="container-fluid">
     <div class="offset-md-3 col-md-6 bg-light text-dark p-4 rounded">
-        <h1 class="page-title">Visualizar Aluno</h1>
+        <h1 class="page-title text-center">Visualizar Aluno</h1>
 
         <?php if ($aluno->foto): ?>
             <div class="text-center mb-3">
@@ -48,7 +55,7 @@
 
         <div class="mt-4 d-flex justify-content-between">
             <a href="<?= $BASE_URL ?>avaliacoes.php?aluno_id=<?= $aluno->id ?>" class="btn btn-primary">Ver Avaliações</a>
-            <a href="<?= $BASE_URL ?>editar_aluno.php?id=<?= $aluno->id ?>" class="btn btn-secondary">Editar</a>
+            <a href="<?= $BASE_URL ?>editaraluno.php?id=<?= $aluno->id ?>" class="btn btn-secondary">Editar</a>
             <a href="<?= $BASE_URL ?>index.php" class="btn btn-light">Voltar</a>
         </div>
     </div>
