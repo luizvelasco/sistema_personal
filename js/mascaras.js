@@ -16,4 +16,7 @@ $(document).ready(function(){
 
   // Máscara para data de nascimento: dd/mm/aaaa
   $('#data_nascimento').mask('00/00/0000');
+
+  // Máscara para data de avaliacao: dd/mm/aaaa
+  $('#data_avaliacao').mask('00/00/0000');
 });
