@@ -108,7 +108,7 @@
             $stmt->execute();
 
             // Mensagem de sucesso
-            $this->message->setMessage("Aluno atualizado com sucesso!", "success", "editaraluno.php?id={$aluno->id}");
+            $this->message->setMessage("Aluno atualizado com sucesso!", "success", "aluno_edit.php?id={$aluno->id}");
         }
 
         public function destroy ($id, $professor_id){

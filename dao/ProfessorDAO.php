@@ -72,7 +72,7 @@
 
              if($redirect) {
                 // redireciona para o perfl do professor
-                $this->message->setMessage("Dados atualizados com sucesso", "success", "editprofile.php");
+                $this->message->setMessage("Dados atualizados com sucesso", "success", "professor_edit.php");
             }
 
 
@@ -129,12 +129,12 @@
                 } else if ($protected){
 
                     // redireciona usuário não autenticado
-                    $this->message->setMessage("Faça a autenticação para acessar essa página", "error", "auth.php");
+                    $this->message->setMessage("Faça a autenticação para acessar essa página", "error", "login.php");
                 }
             } else if ($protected) {
                 
                  // redireciona usuário não autenticado
-                $this->message->setMessage("Faça a autenticação para acessar essa página", "error", "auth.php");
+                $this->message->setMessage("Faça a autenticação para acessar essa página", "error", "login.php");
             }
             
         }
@@ -171,7 +171,7 @@
             $_SESSION["token"] = "";
 
             // Redireciona e apreseta a mensagem de sucesso
-            $this->message->setMessage("Voce fez o logout com sucesso", "success", "auth.php");
+            $this->message->setMessage("Voce fez o logout com sucesso", "success", "login.php");
 
         }
 
@@ -217,7 +217,7 @@
             $stmt->execute();
 
             // Redireciona e apreseta a mensagem de sucesso
-            $this->message->setMessage("Senha alterada com sucesso", "success", "changepassword.php");
+            $this->message->setMessage("Senha alterada com sucesso", "success", "professor_changepassword.php");
             
         }
 

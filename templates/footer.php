@@ -14,9 +14,9 @@
         </div>
         <div id="footer-links-container">
             <ul>
-                <li><a href="<?= $BASE_URL ?>novoaluno.php">Adicionar Aluno</a></li>
-                <li><a href="<?= $BASE_URL ?>dashboard.php">Listar Alunos</a></li>
-                <li><a href="#">Logout</a></li>
+                <li><a href="<?= $BASE_URL ?>aluno_create.php">Adicionar Aluno</a></li>
+                <li><a href="<?= $BASE_URL ?>aluno_dashboard.php">Listar Alunos</a></li>
+                <li><a href="<?= $BASE_URL ?>logout.php">Logout</a></li>
             </ul>
         </div>
         <p>&copy; 2025 Luiz Velasco</p>

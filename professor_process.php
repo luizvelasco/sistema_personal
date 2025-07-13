@@ -62,5 +62,5 @@
         }
 
     } else {
-        $message->setMessage("Informaçõe inválidas", "error", "auth.php");
+        $message->setMessage("Informaçõe inválidas", "error", "login.php");
     }

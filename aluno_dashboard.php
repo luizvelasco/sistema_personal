@@ -38,7 +38,7 @@
                     <td><?= $aluno->email ?></td>
                     <td><?= statusAtivo($aluno->ativo) ?></td>
                     <td class="actions-column">
-                        <a href="<?= $BASE_URL ?>editaraluno.php?id=<?= $aluno->id ?>" class="edit-btn">
+                        <a href="<?= $BASE_URL ?>aluno_edit.php?id=<?= $aluno->id ?>" class="edit-btn">
                             <i class="far fa-edit"></i>
                         </a>
                         <form action="<?= $BASE_URL ?>aluno_process.php" method="post" onsubmit="return confirm('Tem certeza que deseja excluir este aluno?')">

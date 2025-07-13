@@ -55,7 +55,7 @@
 
         <div class="mt-4 d-flex justify-content-between">
             <a href="<?= $BASE_URL ?>avaliacoes.php?aluno_id=<?= $aluno->id ?>" class="btn btn-primary">Ver Avaliações</a>
-            <a href="<?= $BASE_URL ?>editaraluno.php?id=<?= $aluno->id ?>" class="btn btn-secondary">Editar</a>
+            <a href="<?= $BASE_URL ?>aluno_edit.php?id=<?= $aluno->id ?>" class="btn btn-secondary">Editar</a>
             <a href="<?= $BASE_URL ?>index.php" class="btn btn-light">Voltar</a>
         </div>
     </div>

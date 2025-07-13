@@ -122,12 +122,12 @@
             $maxSize = 2 * 1024 * 1024; // 2MB
 
             if (!in_array($foto["type"], $allowedTypes)) {
-                $message->setMessage("Tipo de imagem inválido. Envie JPG ou PNG.", "error", "editaraluno.php?id=$id");
+                $message->setMessage("Tipo de imagem inválido. Envie JPG ou PNG.", "error", "aluno_edit.php?id=$id");
                 exit();
             }
 
             if ($foto["size"] > $maxSize) {
-                $message->setMessage("Imagem muito grande. Envie até 2MB.", "error", "editaraluno.php?id=$id");
+                $message->setMessage("Imagem muito grande. Envie até 2MB.", "error", "aluno_edit.php?id=$id");
                 exit();
             }
 
@@ -148,7 +148,7 @@
         // Salva no banco
         $alunoDao->update($aluno);
 
-        $message->setMessage("Aluno atualizado com sucesso!", "success", "dashboard.php");
+        $message->setMessage("Aluno atualizado com sucesso!", "success", "aluno_dashboard.php");
 
     }elseif($type === "delete") {
         // Verifica se foi enviado via POST
