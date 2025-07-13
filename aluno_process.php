@@ -14,10 +14,13 @@
     // Resgata o tipo do formulário
     $type = filter_input(INPUT_POST, "type");
 
-    // Restaga dados do usuário
+    // Busca o id do professor
      $professorData = $professorDao->verifyToken(true);
+     $professor_id = $professorData->id;
 
     if($type === "create") {
+
+        
 
         // Recebere os dados dos inputs
         $nome = filter_input(INPUT_POST, "nome");
@@ -26,7 +29,6 @@
         $data_nascimento = filter_input(INPUT_POST, "data_nascimento");
         $data_nascimento = str_replace("/", "-", $data_nascimento); // converte para formato compatível
         $data_nascimento = date("Y-m-d", strtotime($data_nascimento)); // converte para formato DATE (YYYY-MM-DD)
-
         $genero = filter_input(INPUT_POST, "genero");
         
 
@@ -43,38 +45,36 @@
             $aluno->genero = $genero;
             $aluno->professor_id = $professorData->id;
 
-            // Upload da foto do aluno
-            if(isset($_FILES["foto"]) && !empty($_FILES["foto"]["tmp_name"])){
+            // Foto
+            if (isset($_FILES["foto"]) && $_FILES["foto"]["size"] > 0) {
 
                 $foto = $_FILES["foto"];
-                $fotoTypes = ["image/jpeg", "image/jpg", "image/png"];
-                $jpgArray = ["image/jpeg", "image/jpg"];
+                $allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
+                $maxSize = 2 * 1024 * 1024; // 2MB
+                
 
-
-                // Checando tipo da foto
-                if(in_array($foto["type"], $fotoTypes)) {
-
-                    if (in_array($foto["type"], $jpgArray)) {
-                        $fotoFile = imagecreatefromjpeg($foto["tmp_name"]);
-                    } else {
-                        $fotoFile = imagecreatefrompng($foto["tmp_name"]);
-                    }
-
-                    // Gerando o nome da imagem
-                    $fotoName = $aluno->imageGenerateName();
-
-                    // Jogando a imagem para a pasta
-                    imagejpeg($fotoFile, "./img/alunos/" . $fotoName, 100);
-
-                    $aluno->foto = $fotoName;
-
-                } else {
-
-                    $message->setMessage("Tipo inválido de imagem, insira png ou jpg!", "error", "back");
-                    exit;
-
+                if (!in_array($foto["type"], $allowedTypes)) {
+                    $message->setMessage("Tipo de imagem inválido. Envie JPG ou PNG.", "error", "back");
+                    exit();
                 }
 
+                if ($foto["size"] > $maxSize) {
+                    $message->setMessage("Imagem muito grande. Envie até 2MB.", "error", "back");
+                    exit();
+                }
+                
+                // Gera nome único
+                $imageName = uniqid() . "." . pathinfo($foto["name"], PATHINFO_EXTENSION);
+                $destPath = "img/alunos/" . $imageName;
+
+                move_uploaded_file($foto["tmp_name"], $destPath);
+
+                // Deleta foto antiga se houver
+                if (!empty($aluno->foto) && file_exists("img/alunos/" . $aluno->foto)) {
+                    unlink("img/alunos/" . $aluno->foto);
+                }
+
+                $aluno->foto = $imageName;
             }
 
             $alunoDao->create($aluno);
@@ -91,17 +91,17 @@
         $nome = filter_input(INPUT_POST, "nome");
         $email = filter_input(INPUT_POST, "email");
         $telefone = filter_input(INPUT_POST, "telefone");
-        $data_nascimento = filter_input(INPUT_POST, "data_nascimento");
         $genero = filter_input(INPUT_POST, "genero");
         $ativo = filter_input(INPUT_POST, "ativo");
+        $data_nascimento = filter_input(INPUT_POST, "data_nascimento");
+        $data_nascimento = str_replace("/", "-", $data_nascimento); // converte para formato compatível
+        $data_nascimento = date("Y-m-d", strtotime($data_nascimento)); // converte para formato DATE (YYYY-MM-DD)
 
         // Busca o aluno no banco com verificação de vínculo
         $aluno = $alunoDao->findById($id, $professor_id);
 
-        echo $id . " - " . $professor_id;
-
         if (!$aluno) {
-            $message->setMessage("Aluno não encontrado ou acesso negado!", "error", "index.php");
+            $message->setMessage("Processar: Aluno não encontrado ou acesso negado!", "error", "index.php");
             exit();
         }
 
@@ -148,10 +148,25 @@
         // Salva no banco
         $alunoDao->update($aluno);
 
-        $message->setMessage("Aluno atualizado com sucesso!", "success", "editaraluno.php?id=$id");
+        $message->setMessage("Aluno atualizado com sucesso!", "success", "dashboard.php");
 
-    } else {
+    }elseif($type === "delete") {
+        // Verifica se foi enviado via POST
+        if ($_SERVER["REQUEST_METHOD"] === "POST") {
+            $id = filter_input(INPUT_POST, "id");
+
+            if (!$id) {
+                $message->setMessage("ID do aluno inválido.", "error", "index.php");
+                exit();
+            }
+
+            // Exclui o aluno com verificação de vínculo
+            $alunoDao->destroy($id, $professor_id);
+
+        }
+    }else {
         $message->setMessage("Informações inválidas", "error", "index.php");
+        exit();
     }
 
 

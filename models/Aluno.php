@@ -27,6 +27,6 @@
         public function findAll();
         public function create(Aluno $aluno);
         public function update(Aluno $aluno);
-        public function destroy ($id);
+        public function destroy ($id, $professor_id);
         public function findById ($id, $professor_id);
     }

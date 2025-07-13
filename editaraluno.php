@@ -56,7 +56,8 @@ if (!$aluno) {
 
             <div class="form-group mb-3">
                 <label for="data_nascimento">Data de Nascimento:</label>
-                <input type="text" name="data_nascimento" id="data_nascimento" class="form-control" value="<?= $aluno->data_nascimento ?>" required>
+                <input type="text" name="data_nascimento" id="data_nascimento" class="form-control" value="<?= date("d/m/Y", strtotime($aluno->data_nascimento)) ?>" required>
+
             </div>
 
             <div class="form-group mb-3">

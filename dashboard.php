@@ -41,8 +41,7 @@
                         <a href="<?= $BASE_URL ?>editaraluno.php?id=<?= $aluno->id ?>" class="edit-btn">
                             <i class="far fa-edit"></i>
                         </a>
-                        <form action="<?= $BASE_URL ?>aluno_process.php">
-
+                        <form action="<?= $BASE_URL ?>aluno_process.php" method="post" onsubmit="return confirm('Tem certeza que deseja excluir este aluno?')">
                             <input type="hidden" name="type" value="delete">
                             <input type="hidden" name="id" value="<?= $aluno->id ?>">
                             <button type="submit" class="delete-btn">

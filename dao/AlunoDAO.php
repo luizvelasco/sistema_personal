@@ -111,8 +111,27 @@
             $this->message->setMessage("Aluno atualizado com sucesso!", "success", "editaraluno.php?id={$aluno->id}");
         }
 
-        public function destroy ($id){
-            
+        public function destroy ($id, $professor_id){
+             // Verifica se o aluno pertence ao professor
+            $aluno = $this->findById($id, $professor_id);
+
+            if (!$aluno) {
+                $this->message->setMessage("Aluno não encontrado ou acesso negado!", "error", "index.php");
+                return;
+            }
+
+            // Remove a foto do servidor, se existir
+            if (!empty($aluno->foto) && file_exists("img/alunos/" . $aluno->foto)) {
+                unlink("img/alunos/" . $aluno->foto);
+            }
+
+            // Deleta do banco
+            $stmt = $this->conn->prepare("DELETE FROM alunos WHERE id = :id AND professor_id = :professor_id");
+            $stmt->bindParam(":id", $id);
+            $stmt->bindParam(":professor_id", $professor_id);
+            $stmt->execute();
+
+            $this->message->setMessage("Aluno removido com sucesso!", "success", "index.php");
         }
 
         public function findById($id, $professor_id) {
