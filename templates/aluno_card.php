@@ -18,7 +18,7 @@
             <?= date('d/m/Y', strtotime($aluno->data_nascimento)) ?>
         </p>
 
-        <a href="<?= $BASE_URL ?>avaliacoes.php?alunoid=<?= $aluno->id ?>" class="btn btn-primary rate-btn">Avaliações</a>
+        <a href="<?= $BASE_URL ?>avaliacao_dashboard.php?aluno_id=<?= $aluno->id ?>" class="btn btn-primary rate-btn">Avaliações</a>
         <a href="<?= $BASE_URL ?>aluno.php?id=<?= $aluno->id ?>" class="btn btn-primary card-btn">Editar</a>
     </div>
 </div>

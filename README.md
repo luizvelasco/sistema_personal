@@ -130,17 +130,14 @@ CREATE TABLE IF NOT EXISTS alunos (
 CREATE TABLE IF NOT EXISTS avaliacoes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     aluno_id INT NOT NULL,
-    professor_id INT NOT NULL,
     data_avaliacao DATE NOT NULL,
     peso DECIMAL(5,2),
     percentual_gordura DECIMAL(5,2),
     percentual_massa_magra DECIMAL(5,2),
     observacoes TEXT,
-    ativo BOOLEAN DEFAULT 1,
     criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     atualizado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (aluno_id) REFERENCES alunos(id),
-    FOREIGN KEY (professor_id) REFERENCES professores(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Tabela: avaliacao_fotos
