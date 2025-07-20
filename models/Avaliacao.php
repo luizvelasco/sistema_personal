@@ -18,5 +18,6 @@
 
         public function buildAvaliacao($data);
         public function getAvaliacoes($aluno_id);
+        public function create(Avaliacao $avaliacao);
 
     }

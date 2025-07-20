@@ -35,7 +35,7 @@
 
         public function getAvaliacoes($aluno_id){
 
-            $avaliacao = [];
+            $avaliacoes = [];
 
             $query = "SELECT * FROM avaliacoes WHERE aluno_id = :aluno_id ORDER BY data_avaliacao DESC";
             $stmt = $this->conn->prepare($query);
@@ -45,10 +45,32 @@
             $avaliacaoArray = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             foreach ($avaliacaoArray as $avaliacao) {
-                $avaliacao[] = $this->buildAvaliacao($avaliacao);
+                $avaliacoes[] = $this->buildAvaliacao($avaliacao);
             }
 
-            return $avaliacao;
+            return $avaliacoes;
+
+        }
+
+        public function create(Avaliacao $avaliacao) {
+
+            $stmt = $this->conn->prepare("INSERT INTO avaliacoes (
+                aluno_id, data_avaliacao, peso, percentual_gordura, percentual_massa_magra, observacoes
+            ) VALUES (
+                :aluno_id, :data_avaliacao, :peso, :percentual_gordura, :percentual_massa_magra, :observacoes
+            )");
+
+            $stmt->bindParam(":aluno_id", $avaliacao->aluno_id);
+            $stmt->bindParam(":data_avaliacao", $avaliacao->data_avaliacao);
+            $stmt->bindParam(":peso", $avaliacao->peso);
+            $stmt->bindParam(":percentual_gordura", $avaliacao->percentual_gordura);
+            $stmt->bindParam(":percentual_massa_magra", $avaliacao->percentual_massa_magra);
+            $stmt->bindParam(":observacoes", $avaliacao->observacoes);
+
+            $stmt->execute();
+
+            // Mensagem de sucesso por adicionar avaliação
+            $this->message->setMessage("Avaliação adicionada com sucesso", "success", "avaliacao_dashboard.php?aluno_id=" . $avaliacao->aluno_id);
 
         }
 

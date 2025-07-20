@@ -4,16 +4,28 @@
     // Verifica se usuário está autenticado
     require_once("models/Professor.php");
     require_once("dao/ProfessorDAO.php");
+    require_once("dao/AlunoDAO.php");
     $professor = new Professor();
     $professorDao = new ProfessorDAO($conn, $BASE_URL);
+    $alunoDao = new AlunoDAO($conn, $BASE_URL);
     $professorData = $professorDao->verifyToken(true);
+
+    // Pega o ID do aluno via GET
+    $aluno_id = filter_input(INPUT_GET, "aluno_id");
+
+    $aluno = $alunoDao->findById($aluno_id, $professorData->id);
+    if (!$aluno) {
+        // Não encontrou o aluno, redireciona
+        $message->setMessage("Aluno não encontrado", "error", "aluno.php");
+        exit();
+    }
 ?>
 
     <div id="main-container" class="container-fluid">
         <div class="offset-md-4 col-md-4 new-movie-container">
             <h1 class="page-title">Adicionar Avaliação</h1>
-            <p class="page-description">Adicione a avaliação do aluno XXX</p>
-            <form action="<?= $BASE_URL ?>avaliacao_process.php" id="add-movie-form" method="post" enctype="multipart/form-data">
+            <p class="page-description">Adicione a avaliação do aluno <?=  $aluno->nome ?></p>
+            <form action="<?= $BASE_URL ?>avaliacao_process.php?aluno_id=<?= $aluno_id ?>" id="add-movie-form" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="type" value="create">
                 <div class="form-group">
                     <label for="data_avaliacao">Data da Avaliação</label>
@@ -32,17 +44,10 @@
                     <input type="text" class="form-control" id="percentual_massa_magra" name="percentual_massa_magra" placeholder="Digite o percentual de massa magra do aluno">
                 </div>
                 <div class="form-group">
-                    <label for="genero">Gênero</label>
-                    <select class="form-control" name="genero" id="genero">
-                        <option value="">Selecione</option>
-                        <option value="Masculino">Masculino</option>
-                        <option value="Feminino">Feminino</option>
-                    </select>
+                    <label for="observacoes">Observações</label>
+                    <textarea name="observacoes" id="observacoes" class="form-control" rows="6"></textarea>
                 </div>
-                <div class="form-group">
-                    <label for="foto">Foto</label>
-                    <input type="file" class="form-control-file" name="foto" id="foto">
-                </div>
+               
                 <input type="submit" class="btn card-btn" value="Adicionar Aluno">
             </form>
         </div>
